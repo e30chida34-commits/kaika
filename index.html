@@ -51,18 +51,17 @@
         <div class="result-card">
             <b id="res-title" style="color:var(--main); font-size:18px;"></b>
             <p id="res-desc" style="margin-top:10px; font-size:14px; line-height:1.6;"></p>
+            <p style="margin-top:10px; font-size:13px; color:#e67e22; font-weight:bold; text-align:center;">只今、先行受付中！</p>
         </div>
-        <a id="lp-link" href="#" class="link-btn">夢を実らせる第一歩へ</a>
+        <a id="lp-link" href="#" class="link-btn">Yumemi AI Lab で詳しく見る</a>
     </div>
 </div>
 
 <script>
-    // 悦子さんの新しいIDを反映済みです
     const MY_LIFF_ID = "2009388480-ncKQGqK3"; 
-    // 最後に飛ばす「講座LP」のLIFF URL
     const MASTER_LP_URL = "https://liff.line.me/2009352619-jSxzbjZu";
 
-    liff.init({ liffId: MY_LIFF_ID }).catch(err => console.error("LIFF初期化エラー", err));
+    liff.init({ liffId: MY_LIFF_ID }).catch(err => console.error(err));
 
     function nextStep(n) {
         document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
@@ -76,7 +75,7 @@
         
         if (key === 'biz') {
             resTitle.innerText = "【創業マインド×実務サポート】";
-            resDesc.innerText = "やりたいを形にする事業計画からIT活用まで、悦子が伴走します。";
+            resDesc.innerText = "やりたいを形にする事業計画からIT活用まで、しっかり伴走します。";
         } else if (key === 'it') {
             resTitle.innerText = "【AI・デジタル活用コース】";
             resDesc.innerText = "50代からでも楽しく使えるAI活用術で、新しい働き方を。";
