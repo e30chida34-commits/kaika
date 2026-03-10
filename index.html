@@ -3,119 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yumemi AI Lab 経営診断</title>
+    <title>50代からの『才能開花』診断</title>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <style>
-        :root { --main: #1a3a5f; --accent: #d4af37; --bg: #f8f9fa; }
-        body { font-family: sans-serif; background-color: var(--bg); padding: 15px; margin: 0; }
-        .container { background: white; max-width: 450px; border-radius: 25px; padding: 30px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--main); margin: auto; }
+        :root { --main: #8e44ad; --accent: #f39c12; --bg: #fdfaf5; }
+        body { font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; background-color: var(--bg); padding: 20px 15px; margin: 0; display: flex; justify-content: center; min-height: 100vh; color: #333; }
+        .container { background: white; width: 100%; max-width: 450px; border-radius: 30px; padding: 40px 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--main); height: fit-content; }
         .step { display: none; }
-        .step.active { display: block; animation: fadeIn 0.4s ease; }
-        h1 { font-size: 18px; color: var(--main); text-align: center; margin-bottom: 25px; line-height: 1.5; }
-        .btn-grid { display: grid; gap: 10px; }
-        button { background: #fff; border: 1.5px solid #eee; padding: 18px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; text-align: center; color: #444; }
-        button:active { background: var(--main); color: white; }
-        .result-card { background: #fffdf5; border: 1px solid var(--accent); padding: 25px; border-radius: 15px; margin-top: 15px; text-align: left; }
-        .link-btn { display: inline-block; background: #d4af37; color: white; padding: 20px 0; width: 100%; border-radius: 50px; text-decoration: none; margin-top: 25px; font-weight: bold; text-align:center; font-size: 18px; box-shadow: 0 4px 15px rgba(212,175,55,0.3); }
+        .step.active { display: block; animation: fadeIn 0.3s ease; }
+        h1 { font-size: 20px; color: var(--main); text-align: center; margin-bottom: 25px; line-height: 1.6; font-weight: bold; }
+        p.intro { text-align: center; color: #666; font-size: 15px; margin-bottom: 30px; line-height: 1.7; }
+        .btn-grid { display: grid; gap: 12px; }
+        button { background: #fff; border: 2px solid #eee; padding: 18px; border-radius: 15px; font-size: 16px; font-weight: bold; cursor: pointer; color: #444; width: 100%; transition: all 0.2s; }
+        button:active { background: var(--main); color: white; border-color: var(--main); transform: scale(0.98); }
+        .result-card { background: #faf5ff; border: 2px dashed var(--main); padding: 20px; border-radius: 15px; margin-top: 20px; }
+        .result-title { color: var(--main); font-size: 18px; font-weight: bold; margin-bottom: 10px; display: block; text-align: center; }
+        .link-btn { display: block; background: var(--accent); color: white; padding: 20px; border-radius: 50px; text-decoration: none; margin-top: 25px; font-weight: bold; text-align: center; font-size: 18px; box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3); }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 <div class="container">
-    <div id="step-start" class="step active">
-        <h1>Yumemi AI Lab<br>経営・起業 診断</h1>
-        <p style="text-align:center; font-size:14px; color:#666; margin-bottom:30px;">IT初心者から「自社で使える」まで。<br>あなたの現状に最適なルートを診断します。</p>
-        <button onclick="nextStep(1)" style="background:var(--main); color:white; width:100%;">診断を始める</button>
+    <div id="step-0" class="step active">
+        <h1>50代からの起業。<br>次にやるべきことがわかる<br>『才能開花』診断</h1>
+        <p class="intro">「私には何ができる？」<br>これまでの経験は、すべて宝物。<br>あなたの才能を形にする一歩を見つけましょう。</p>
+        <button onclick="nextStep(1)" style="background:var(--main); color:white; border:none;">才能の扉をひらく</button>
     </div>
 
-    <div id="step1" class="step">
-        <h1>ご年齢をお選びください</h1>
+    <div id="step-1" class="step">
+        <h1>今、どんな状況ですか？</h1>
         <div class="btn-grid">
-            <button onclick="saveData('age', '20-40代', 2)">20-40代</button>
-            <button onclick="saveData('age', '50代', 2)">50代</button>
-            <button onclick="saveData('age', '60代以上', 2)">60代以上</button>
+            <button onclick="nextStep(2)">会社員・お勤め中</button>
+            <button onclick="nextStep(2)">主婦・パート</button>
+            <button onclick="nextStep(2)">すでに小さく活動中</button>
         </div>
     </div>
 
-    <div id="step2" class="step">
-        <h1>性別をお選びください</h1>
+    <div id="step-2" class="step">
+        <h1>叶えたい未来はどれ？</h1>
         <div class="btn-grid">
-            <button onclick="saveData('gender', '女性', 3)">女性</button>
-            <button onclick="saveData('gender', '男性', 3)">男性</button>
-        </div>
-    </div>
-
-    <div id="step3" class="step">
-        <h1>現在の状況を教えてください</h1>
-        <div class="btn-grid">
-            <button onclick="saveData('type', '個人事業主', 4)">個人事業主</button>
-            <button onclick="saveData('type', '中小企業経営者', 4)">中小企業経営者</button>
-            <button onclick="saveData('type', 'これから創業予定', 4)">これから創業予定</button>
-        </div>
-    </div>
-
-    <div id="step4" class="step">
-        <h1>今、最も解決したいことは？</h1>
-        <div class="btn-grid">
-            <button onclick="showResult('sales')">💰 集客・売上を増やしたい</button>
-            <button onclick="showResult('work')">⏱️ 業務を効率化して時間を戻したい</button>
-            <button onclick="showResult('biz')">📝 補助金や経営について相談したい</button>
+            <button onclick="showResult('biz')">一生モノのスキルで自立したい</button>
+            <button onclick="showResult('it')">最新のITやAIを使いこなしてみたい</button>
+            <button onclick="showResult('fun')">趣味や特技を仕事にしてみたい</button>
         </div>
     </div>
 
     <div id="result" class="step">
-        <h1>あなたへの最適な解決策</h1>
-        <div id="result-text" class="result-card"></div>
-        <a id="lp-link" href="#" class="link-btn">伴走型プログラムの詳細を見る</a>
+        <h1>あなたの開花ルート</h1>
+        <div class="result-card">
+            <span id="res-title" class="result-title"></span>
+            <p id="res-desc" style="margin-top:10px; font-size:15px; line-height:1.6;"></p>
+        </div>
+        <a id="lp-link" href="#" class="link-btn">夢を実らせる第一歩へ</a>
     </div>
 </div>
 
 <script>
-    const MY_LIFF_ID = "2009352619-P8YzXd3A";
-    const MASTER_LP_LIFF_URL = "https://liff.line.me/2009352619-jSxzbjZu"; // 講座LPへのリンク
-    
-    // ★サイレント送信用のGoogleフォームURL（必要なら後で設定）
-    const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/.../formResponse";
-    
-    let userData = {};
+    // ※新しいLIFF IDを発行したら、ここに貼り替えてください
+    const MY_LIFF_ID = "2009352619-P8YzXd3A"; 
+    const MASTER_LP_URL = "https://liff.line.me/2009352619-jSxzbjZu";
 
-    async function initializeLiff() {
-        try { await liff.init({ liffId: MY_LIFF_ID }); if (!liff.isLoggedIn()) liff.login(); } catch (e) { console.error(e); }
-    }
+    liff.init({ liffId: MY_LIFF_ID });
 
     function nextStep(n) {
-        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-        document.getElementById('step' + n).classList.add('active');
+        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+        document.getElementById('step-' + n).classList.add('active');
     }
 
-    function saveData(key, value, next) {
-        userData[key] = value;
-        nextStep(next);
-    }
+    function showResult(key) {
+        const resTitle = document.getElementById('res-title');
+        const resDesc = document.getElementById('res-desc');
+        const linkBtn = document.getElementById('lp-link');
+        
+        let title = "", desc = "";
 
-    function showResult(issueKey) {
-        const res = document.getElementById('result-text');
-        const link = document.getElementById('lp-link');
-        let t = "", a = "", url = MASTER_LP_LIFF_URL;
-
-        if (issueKey === 'biz') {
-            t = "経営相談・公的支援活用";
-            a = "まずは「よろず支援拠点」の無料相談を活用し、土台を固めましょう。千田悦子が専門家として伴走いたします。";
-            url = "https://yorozu.it-ibaraki.jp/";
-            link.innerText = "よろず支援拠点の詳細を見る";
-        } else if (issueKey === 'sales') {
-            t = "戦略的マーケティング伴走";
-            a = "「売れる導線」を自社で構築する力を身につけます。300本以上の実績に基づいた企画力でサポートします。";
+        if (key === 'biz') {
+            title = "創業マインド × 実務サポート";
+            desc = "「やりたい」を形にする事業計画から、ITの活用まで。千田悦子があなたの夢に寄り添い、確実な一歩をサポートします。";
+        } else if (key === 'it') {
+            title = "AI・デジタル活用コース";
+            desc = "難しい言葉は一切なし！50代からでも楽しく使えるAI活用術で、今の仕事を楽に、新しく。ワクワクする未来を作りましょう。";
         } else {
-            t = "AI・ITによる業務効率化";
-            a = "最新技術を使い、経営者としての自由な時間を取り戻す。自走できる仕組み作りを徹底サポートします。";
+            title = "『夢実工房』プロデュース";
+            desc = "あなたの個性を引き出し、形にする。300本以上の実績があるからこそできる、あなただけのブランド作りをご提案。";
         }
 
-        res.innerHTML = `<strong>【${t}】</strong><br><p style="margin-top:10px;">${a}</p>`;
-        link.href = url;
-        
-        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-        document.getElementById('result').classList.add('active');
+        resTitle.innerText = `【${title}】`;
+        resDesc.innerText = desc;
+        linkBtn.href = MASTER_LP_URL;
 
-        // ★裏側でデータを送信（お客様の画面には出ません）
-        // sendToGoogleForm(
+        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+        document.getElementById('result').classList.add('active');
+    }
+</script>
+</body>
+</html>
