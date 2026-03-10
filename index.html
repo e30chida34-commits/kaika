@@ -3,88 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>50代からの『才能開花』診断</title>
+    <title>才能開花診断</title>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <style>
         :root { --main: #8e44ad; --accent: #f39c12; --bg: #fdfaf5; }
-        body { font-family: sans-serif; background-color: var(--bg); padding: 20px 15px; margin: 0; display: flex; justify-content: center; min-height: 100vh; color: #333; }
-        .container { background: white; width: 100%; max-width: 450px; border-radius: 30px; padding: 40px 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--main); }
+        body { font-family: sans-serif; background-color: var(--bg); padding: 20px; color: #333; text-align: center; }
+        .container { background: white; max-width: 400px; margin: 0 auto; border-radius: 30px; padding: 40px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--main); }
         .step { display: none; }
         .step.active { display: block; }
-        h1 { font-size: 20px; color: var(--main); text-align: center; margin-bottom: 25px; line-height: 1.6; }
-        p.intro { text-align: center; color: #666; font-size: 15px; margin-bottom: 30px; }
-        .btn-grid { display: grid; gap: 12px; }
-        button { background: #fff; border: 2px solid #eee; padding: 18px; border-radius: 15px; font-size: 16px; font-weight: bold; cursor: pointer; color: #444; width: 100%; }
+        button { background: #fff; border: 2px solid #eee; padding: 15px; border-radius: 15px; width: 100%; margin-bottom: 10px; font-weight: bold; cursor: pointer; }
         button:active { background: var(--main); color: white; }
         .result-card { background: #faf5ff; border: 2px dashed var(--main); padding: 20px; border-radius: 15px; margin-top: 20px; }
-        .link-btn { display: block; background: var(--accent); color: white; padding: 20px; border-radius: 50px; text-decoration: none; margin-top: 25px; font-weight: bold; text-align: center; }
+        .link-btn { display: block; background: var(--accent); color: white; padding: 20px; border-radius: 50px; text-decoration: none; margin-top: 25px; font-weight: bold; }
     </style>
 </head>
 <body>
 <div class="container">
     <div id="step-0" class="step active">
-        <h1>50代からの起業。<br>次にやるべきことがわかる<br>『才能開花』診断</h1>
-        <p class="intro">「私には何ができる？」<br>あなたの才能を形にする一歩を<br>見つけましょう。</p>
-        <button onclick="nextStep(1)" style="background:var(--main); color:white; border:none;">才能の扉をひらく</button>
+        <h2>50代からの『才能開花』診断</h2>
+        <p>あなたの才能を形にする一歩を見つけましょう。</p>
+        <button onclick="nextStep(1)" style="background:var(--main); color:white; border:none;">診断をはじめる</button>
     </div>
-
     <div id="step-1" class="step">
-        <h1>今、どんな状況ですか？</h1>
-        <div class="btn-grid">
-            <button onclick="nextStep(2)">会社員・お勤め中</button>
-            <button onclick="nextStep(2)">主婦・パート</button>
-            <button onclick="nextStep(2)">すでに小さく活動中</button>
-        </div>
+        <h2>今、どんな状況ですか？</h2>
+        <button onclick="nextStep(2)">会社員・お勤め中</button>
+        <button onclick="nextStep(2)">主婦・パート</button>
+        <button onclick="nextStep(2)">すでに活動中</button>
     </div>
-
     <div id="step-2" class="step">
-        <h1>叶えたい未来はどれ？</h1>
-        <div class="btn-grid">
-            <button onclick="showResult('biz')">一生モノのスキルで自立したい</button>
-            <button onclick="showResult('it')">最新のITやAIを使いこなしたい</button>
-            <button onclick="showResult('fun')">特技を仕事にしてみたい</button>
-        </div>
+        <h2>叶えたい未来はどれ？</h2>
+        <button onclick="showResult('biz')">スキルで自立したい</button>
+        <button onclick="showResult('it')">ITやAIを使いこなしたい</button>
+        <button onclick="showResult('fun')">特技を仕事にしたい</button>
     </div>
-
     <div id="result" class="step">
-        <h1>あなたの開花ルート</h1>
+        <h2>あなたの開花ルート</h2>
         <div class="result-card">
-            <b id="res-title" style="color:var(--main); font-size:18px;"></b>
-            <p id="res-desc" style="margin-top:10px; font-size:14px; line-height:1.6;"></p>
-            <p style="margin-top:10px; font-size:13px; color:#e67e22; font-weight:bold; text-align:center;">只今、先行受付中！</p>
+            <b id="res-title" style="color:var(--main);"></b>
+            <p id="res-desc" style="font-size:14px;"></p>
+            <p style="color:#e67e22; font-weight:bold;">只今、先行受付中！</p>
         </div>
         <a id="lp-link" href="#" class="link-btn">Yumemi AI Lab で詳しく見る</a>
     </div>
 </div>
-
 <script>
     const MY_LIFF_ID = "2009388480-ncKQGqK3"; 
     const MASTER_LP_URL = "https://liff.line.me/2009352619-jSxzbjZu";
-
-    liff.init({ liffId: MY_LIFF_ID }).catch(err => console.error(err));
-
+    liff.init({ liffId: MY_LIFF_ID });
     function nextStep(n) {
         document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
         document.getElementById('step-' + n).classList.add('active');
     }
-
     function showResult(key) {
         const resTitle = document.getElementById('res-title');
         const resDesc = document.getElementById('res-desc');
-        const linkBtn = document.getElementById('lp-link');
-        
         if (key === 'biz') {
             resTitle.innerText = "【創業マインド×実務サポート】";
-            resDesc.innerText = "やりたいを形にする事業計画からIT活用まで、しっかり伴走します。";
+            resDesc.innerText = "やりたいを形にする事業計画からIT活用まで伴走します。";
         } else if (key === 'it') {
             resTitle.innerText = "【AI・デジタル活用コース】";
-            resDesc.innerText = "50代からでも楽しく使えるAI活用術で、新しい働き方を。";
+            resDesc.innerText = "50代からでも楽しく使えるAI活用術をご提案。";
         } else {
             resTitle.innerText = "【夢実工房プロデュース】";
-            resDesc.innerText = "あなたの個性を引き出し、形にするブランド作りをご提案。";
+            resDesc.innerText = "あなたの個性を引き出し、形にするブランド作りを。";
         }
-
-        linkBtn.href = MASTER_LP_URL;
+        document.getElementById('lp-link').href = MASTER_LP_URL;
         document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
         document.getElementById('result').classList.add('active');
     }
