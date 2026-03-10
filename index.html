@@ -7,26 +7,24 @@
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <style>
         :root { --main: #8e44ad; --accent: #f39c12; --bg: #fdfaf5; }
-        body { font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; background-color: var(--bg); padding: 20px 15px; margin: 0; display: flex; justify-content: center; min-height: 100vh; color: #333; }
-        .container { background: white; width: 100%; max-width: 450px; border-radius: 30px; padding: 40px 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--main); height: fit-content; }
+        body { font-family: sans-serif; background-color: var(--bg); padding: 20px 15px; margin: 0; display: flex; justify-content: center; min-height: 100vh; color: #333; }
+        .container { background: white; width: 100%; max-width: 450px; border-radius: 30px; padding: 40px 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--main); }
         .step { display: none; }
-        .step.active { display: block; animation: fadeIn 0.3s ease; }
-        h1 { font-size: 20px; color: var(--main); text-align: center; margin-bottom: 25px; line-height: 1.6; font-weight: bold; }
-        p.intro { text-align: center; color: #666; font-size: 15px; margin-bottom: 30px; line-height: 1.7; }
+        .step.active { display: block; }
+        h1 { font-size: 20px; color: var(--main); text-align: center; margin-bottom: 25px; line-height: 1.6; }
+        p.intro { text-align: center; color: #666; font-size: 15px; margin-bottom: 30px; }
         .btn-grid { display: grid; gap: 12px; }
-        button { background: #fff; border: 2px solid #eee; padding: 18px; border-radius: 15px; font-size: 16px; font-weight: bold; cursor: pointer; color: #444; width: 100%; transition: all 0.2s; }
-        button:active { background: var(--main); color: white; border-color: var(--main); transform: scale(0.98); }
+        button { background: #fff; border: 2px solid #eee; padding: 18px; border-radius: 15px; font-size: 16px; font-weight: bold; cursor: pointer; color: #444; width: 100%; }
+        button:active { background: var(--main); color: white; }
         .result-card { background: #faf5ff; border: 2px dashed var(--main); padding: 20px; border-radius: 15px; margin-top: 20px; }
-        .result-title { color: var(--main); font-size: 18px; font-weight: bold; margin-bottom: 10px; display: block; text-align: center; }
-        .link-btn { display: block; background: var(--accent); color: white; padding: 20px; border-radius: 50px; text-decoration: none; margin-top: 25px; font-weight: bold; text-align: center; font-size: 18px; box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3); }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .link-btn { display: block; background: var(--accent); color: white; padding: 20px; border-radius: 50px; text-decoration: none; margin-top: 25px; font-weight: bold; text-align: center; }
     </style>
 </head>
 <body>
 <div class="container">
     <div id="step-0" class="step active">
         <h1>50代からの起業。<br>次にやるべきことがわかる<br>『才能開花』診断</h1>
-        <p class="intro">「私には何ができる？」<br>これまでの経験は、すべて宝物。<br>あなたの才能を形にする一歩を見つけましょう。</p>
+        <p class="intro">「私には何ができる？」<br>あなたの才能を形にする一歩を<br>見つけましょう。</p>
         <button onclick="nextStep(1)" style="background:var(--main); color:white; border:none;">才能の扉をひらく</button>
     </div>
 
@@ -43,27 +41,28 @@
         <h1>叶えたい未来はどれ？</h1>
         <div class="btn-grid">
             <button onclick="showResult('biz')">一生モノのスキルで自立したい</button>
-            <button onclick="showResult('it')">最新のITやAIを使いこなしてみたい</button>
-            <button onclick="showResult('fun')">趣味や特技を仕事にしてみたい</button>
+            <button onclick="showResult('it')">最新のITやAIを使いこなしたい</button>
+            <button onclick="showResult('fun')">特技を仕事にしてみたい</button>
         </div>
     </div>
 
     <div id="result" class="step">
         <h1>あなたの開花ルート</h1>
         <div class="result-card">
-            <span id="res-title" class="result-title"></span>
-            <p id="res-desc" style="margin-top:10px; font-size:15px; line-height:1.6;"></p>
+            <b id="res-title" style="color:var(--main); font-size:18px;"></b>
+            <p id="res-desc" style="margin-top:10px; font-size:14px; line-height:1.6;"></p>
         </div>
         <a id="lp-link" href="#" class="link-btn">夢を実らせる第一歩へ</a>
     </div>
 </div>
 
 <script>
-    // ※新しいLIFF IDを発行したら、ここに貼り替えてください
+    // 悦子さんの新しいIDを反映済みです
     const MY_LIFF_ID = "2009388480-ncKQGqK3"; 
+    // 最後に飛ばす「講座LP」のLIFF URL
     const MASTER_LP_URL = "https://liff.line.me/2009352619-jSxzbjZu";
 
-    liff.init({ liffId: MY_LIFF_ID })
+    liff.init({ liffId: MY_LIFF_ID }).catch(err => console.error("LIFF初期化エラー", err));
 
     function nextStep(n) {
         document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
@@ -75,23 +74,18 @@
         const resDesc = document.getElementById('res-desc');
         const linkBtn = document.getElementById('lp-link');
         
-        let title = "", desc = "";
-
         if (key === 'biz') {
-            title = "創業マインド × 実務サポート";
-            desc = "「やりたい」を形にする事業計画から、ITの活用まで。千田悦子があなたの夢に寄り添い、確実な一歩をサポートします。";
+            resTitle.innerText = "【創業マインド×実務サポート】";
+            resDesc.innerText = "やりたいを形にする事業計画からIT活用まで、悦子が伴走します。";
         } else if (key === 'it') {
-            title = "AI・デジタル活用コース";
-            desc = "難しい言葉は一切なし！50代からでも楽しく使えるAI活用術で、今の仕事を楽に、新しく。ワクワクする未来を作りましょう。";
+            resTitle.innerText = "【AI・デジタル活用コース】";
+            resDesc.innerText = "50代からでも楽しく使えるAI活用術で、新しい働き方を。";
         } else {
-            title = "『夢実工房』プロデュース";
-            desc = "あなたの個性を引き出し、形にする。300本以上の実績があるからこそできる、あなただけのブランド作りをご提案。";
+            resTitle.innerText = "【夢実工房プロデュース】";
+            resDesc.innerText = "あなたの個性を引き出し、形にするブランド作りをご提案。";
         }
 
-        resTitle.innerText = `【${title}】`;
-        resDesc.innerText = desc;
         linkBtn.href = MASTER_LP_URL;
-
         document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
         document.getElementById('result').classList.add('active');
     }
